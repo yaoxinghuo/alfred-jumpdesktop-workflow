@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.terrynow.jumpdesktop_alfred</string>
+	<key>category</key>
+	<string>Tools</string>
+	<key>connections</key>
+	<dict>
+		<key>6E137A26-FE94-46D0-8389-75B105738929</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>3DE6F975-80E7-4468-8C97-6DF437B43F1E</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Terry Yao</string>
+	<key>description</key>
+	<string>Open a connection specified in Jump Desktop</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Open JumpDesktop Connection</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<true/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>jump</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Please Wait</string>
+				<key>script</key>
+				<string></string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string>ConnectionSearcher.py</string>
+				<key>subtext</key>
+				<string>Find and open saved connection in JumpDesktop</string>
+				<key>title</key>
+				<string>Enter JumpDesktop connection name</string>
+				<key>type</key>
+				<integer>8</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>6E137A26-FE94-46D0-8389-75B105738929</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>open "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>3DE6F975-80E7-4468-8C97-6DF437B43F1E</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>Open a saved connection specified in Jump Desktop.</string>
+	<key>uidata</key>
+	<dict>
+		<key>3DE6F975-80E7-4468-8C97-6DF437B43F1E</key>
+		<dict>
+			<key>xpos</key>
+			<integer>405</integer>
+			<key>ypos</key>
+			<integer>130</integer>
+		</dict>
+		<key>6E137A26-FE94-46D0-8389-75B105738929</key>
+		<dict>
+			<key>xpos</key>
+			<integer>180</integer>
+			<key>ypos</key>
+			<integer>100</integer>
+		</dict>
+	</dict>
+	<key>variablesdontexport</key>
+	<array/>
+	<key>version</key>
+	<string>1.0.0</string>
+	<key>webaddress</key>
+	<string>http://www.terrynow.com</string>
+</dict>
+</plist>
