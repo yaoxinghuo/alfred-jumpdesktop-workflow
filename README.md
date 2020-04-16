@@ -9,7 +9,7 @@ Search through your JumpDesktop saved connections using Alfred and easily open o
 
 
 ## Usage
-1. Enter keyword `jump` in Alfred, followed by a searchquery to find the saved connection you need.
+1. Enter keyword `jump` in Alfred, followed by a search query to find the saved connection you need.
 2. Hit <enter> and JumpDesktop will open your connection
 
 ## Preview
