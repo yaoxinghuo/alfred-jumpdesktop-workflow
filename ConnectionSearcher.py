@@ -1,4 +1,4 @@
-#!/usr/local/bin/python
+#! /usr/bin/python
 # -*- coding: utf-8 -*-
 
 from lib import biplist
@@ -13,14 +13,8 @@ sys.setdefaultencoding('utf8')
 
 
 def read_connections():
-    # Read preferences file
-    preferencesPath = os.path.join(os.environ["HOME"], "Library", "Preferences", "com.p5sys.jump.mac.viewer.plist")
-    plist = biplist.readPlist(preferencesPath)
     # Extract profile data from plist
-    connectionPath = plist.get('NSNavLastRootDirectory')
-    if connectionPath.startswith('~'):
-        connectionPath = os.environ["HOME"] + connectionPath[1:]
-    jumps = glob.glob(connectionPath + "/JumpDesktop/Computer - *.jump")
+    jumps = glob.glob(os.environ["HOME"] + "/Library/Containers/com.p5sys.jump.mac.viewer/Data/Documents/JumpDesktop/Viewer/Servers/Computer - *.jump")
     connections = []
     for jump in jumps:
         f = open(jump)
