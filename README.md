@@ -1,4 +1,4 @@
-JumpDesktop Workflow for [Alfred 3](http://www.alfredapp.com)
+JumpDesktop Workflow for [Alfred 3+](http://www.alfredapp.com)
 ==============================
 
 _inspired by [iTerm Profiles Workflow](https://github.com/jessedobbelaere/alfred-iterm-profiles-workflow)_
