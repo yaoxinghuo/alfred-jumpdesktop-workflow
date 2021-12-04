@@ -15,6 +15,9 @@ sys.setdefaultencoding('utf8')
 def read_connections():
     # Read preferences file
     preferencesPath = os.path.join(os.environ["HOME"], "Library", "Containers", "com.p5sys.jump.mac.viewer", "Data", "Library", "Preferences", "com.p5sys.jump.mac.viewer.plist")
+    # if preference path not exists, try this location:
+    if not os.path.isfile(preferencesPath):
+        preferencesPath = os.path.join(os.environ["HOME"], "Library", "Preferences", "com.p5sys.jump.mac.viewer.web.plist")
     plist = biplist.readPlist(preferencesPath)
     # Extract profile data from plist
     connectionPath = plist.get('path where JSON .jump files are stored')
