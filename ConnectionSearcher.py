@@ -1,48 +1,48 @@
-#! /usr/bin/python
+#!/usr/local/bin/python3
 # -*- coding: utf-8 -*-
 
-from lib import biplist
 import os
 import json
 import sys
 import glob
+import plistlib
 from workflow import Workflow, ICON_WARNING, MATCH_SUBSTRING
-
-reload(sys)
-sys.setdefaultencoding('utf8')
 
 
 def read_connections():
     # Read preferences file
-    preferencesPath = os.path.join(os.environ["HOME"], "Library", "Containers", "com.p5sys.jump.mac.viewer", "Data", "Library", "Preferences", "com.p5sys.jump.mac.viewer.plist")
+    preferences_path = os.path.join(os.environ["HOME"], "Library", "Containers", "com.p5sys.jump.mac.viewer", "Data", "Library", "Preferences", "com.p5sys.jump.mac.viewer.plist")
     # if preference path not exists, try this location:
-    if not os.path.isfile(preferencesPath):
-        preferencesPath = os.path.join(os.environ["HOME"], "Library", "Preferences", "com.p5sys.jump.mac.viewer.web.plist")
-    plist = biplist.readPlist(preferencesPath)
-    # Extract profile data from plist
-    connectionPath = plist.get('path where JSON .jump files are stored')
-    if connectionPath.startswith('~'):
-        connectionPath = os.environ["HOME"] + connectionPath[1:]
-    jumps = glob.glob(connectionPath + "/Computer - *.jump")
-    connections = []
-    for jump in jumps:
-        f = open(jump)
-        json_content = f.read()
-        f.close()
-        dict_content = json.loads(json_content)
-        icon = None
-        if dict_content['Icon']:
-            icon = "/Applications/Jump Desktop.app/Contents/Resources/%s.png" % dict_content['Icon']
-        command = 'jump://?protocol=%s&host=%s&username=%s' % \
-                  (protocol_switch(dict_content['ProtocolTypeCode']), dict_content['TcpHostName'], dict_content['Username'])
+    if not os.path.isfile(preferences_path):
+        preferences_path = os.path.join(os.environ["HOME"], "Library", "Preferences", "com.p5sys.jump.mac.viewer.web.plist")
 
-        connections.append({
-            'name': dict_content['DisplayName'],
-            'command': command,
-            'path': jump,
-            'icon': icon,
-            'tags': dict_content['Tags']
-        })
+    connections = []
+    with open(preferences_path, 'rb') as fp:
+        plist = plistlib.load(fp)
+        # Extract profile data from plist
+        connection_path = plist.get('path where JSON .jump files are stored')
+        if connection_path.startswith('~'):
+            connection_path = os.environ["HOME"] + connection_path[1:]
+        jumps = glob.glob(connection_path + "/Computer - *.jump")
+        connections = []
+        for jump in jumps:
+            f = open(jump)
+            json_content = f.read()
+            f.close()
+            dict_content = json.loads(json_content)
+            icon = None
+            if dict_content['Icon']:
+                icon = "/Applications/Jump Desktop.app/Contents/Resources/%s.png" % dict_content['Icon']
+            command = 'jump://?protocol=%s&host=%s&username=%s' % \
+                      (protocol_switch(dict_content['ProtocolTypeCode']), dict_content['TcpHostName'], dict_content['Username'])
+
+            connections.append({
+                'name': dict_content['DisplayName'],
+                'command': command,
+                'path': jump,
+                'icon': icon,
+                'tags': dict_content['Tags']
+            })
 
     return connections
 
@@ -91,4 +91,3 @@ def main(wf):
 if __name__ == u"__main__":
     wf = Workflow()
     sys.exit(wf.run(main))
-    
