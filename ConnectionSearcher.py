@@ -5,44 +5,35 @@ import os
 import json
 import sys
 import glob
-import plistlib
 from workflow import Workflow, ICON_WARNING, MATCH_SUBSTRING
 
 
 def read_connections():
     # Read preferences file
-    preferences_path = os.path.join(os.environ["HOME"], "Library", "Containers", "com.p5sys.jump.mac.viewer", "Data", "Library", "Preferences", "com.p5sys.jump.mac.viewer.plist")
-    # if preference path not exists, try this location:
-    if not os.path.isfile(preferences_path):
-        preferences_path = os.path.join(os.environ["HOME"], "Library", "Preferences", "com.p5sys.jump.mac.viewer.web.plist")
-
+    connection_path = '~/Library/Containers/com.p5sys.jump.mac.viewer/Data/Documents/JumpDesktop/Viewer/Servers'
+    if connection_path.startswith('~'):
+        connection_path = os.environ["HOME"] + connection_path[1:]
+    jumps = glob.glob(connection_path + "/Computer - *.jump")
     connections = []
-    with open(preferences_path, 'rb') as fp:
-        plist = plistlib.load(fp)
-        # Extract profile data from plist
-        connection_path = plist.get('path where JSON .jump files are stored')
-        if connection_path.startswith('~'):
-            connection_path = os.environ["HOME"] + connection_path[1:]
-        jumps = glob.glob(connection_path + "/Computer - *.jump")
-        connections = []
-        for jump in jumps:
-            f = open(jump)
-            json_content = f.read()
-            f.close()
-            dict_content = json.loads(json_content)
-            icon = None
-            if dict_content['Icon']:
-                icon = "/Applications/Jump Desktop.app/Contents/Resources/%s.png" % dict_content['Icon']
-            command = 'jump://?protocol=%s&host=%s&username=%s' % \
-                      (protocol_switch(dict_content['ProtocolTypeCode']), dict_content['TcpHostName'], dict_content['Username'])
+    for jump in jumps:
+        f = open(jump)
+        json_content = f.read()
+        f.close()
+        dict_content = json.loads(json_content)
+        icon = None
+        if dict_content['Icon']:
+            icon = "/Applications/Jump Desktop.app/Contents/Resources/%s.png" % dict_content['Icon']
+        command = 'jump://?protocol=%s&host=%s&username=%s' % \
+                  (protocol_switch(dict_content['ProtocolTypeCode']), dict_content['TcpHostName'],
+                   dict_content['Username'])
 
-            connections.append({
-                'name': dict_content['DisplayName'],
-                'command': command,
-                'path': jump,
-                'icon': icon,
-                'tags': dict_content['Tags']
-            })
+        connections.append({
+            'name': dict_content['DisplayName'],
+            'command': command,
+            'path': jump,
+            'icon': icon,
+            'tags': dict_content['Tags']
+        })
 
     return connections
 
