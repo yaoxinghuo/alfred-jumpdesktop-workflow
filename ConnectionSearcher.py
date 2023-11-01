@@ -33,8 +33,11 @@ def read_connections():
             icon = None
             if dict_content['Icon']:
                 icon = "/Applications/Jump Desktop.app/Contents/Resources/%s.png" % dict_content['Icon']
+            username = ''
+            if "Username" in dict_content:
+                username = dict_content['Username']
             command = 'jump://?protocol=%s&host=%s&username=%s' % \
-                      (protocol_switch(dict_content['ProtocolTypeCode']), dict_content['TcpHostName'], dict_content['Username'])
+                      (protocol_switch(dict_content['ProtocolTypeCode']), dict_content['TcpHostName'], username)
 
             connections.append({
                 'name': dict_content['DisplayName'],
