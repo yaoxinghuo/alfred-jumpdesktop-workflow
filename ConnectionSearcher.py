@@ -3,7 +3,6 @@
 
 import glob
 import json
-import logging
 import os
 import plistlib
 import sys
@@ -51,8 +50,6 @@ def read_connections():
             connection_path = "~/Documents/JumpDesktop/Viewer/Servers"
 
         connection_path = os.path.normpath(os.path.expanduser(connection_path))
-
-        logging.info("connection_path: {}", connection_path)
 
         jumps = glob.glob(connection_path + "/Computer - *.jump")
         connections = []
