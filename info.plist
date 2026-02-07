@@ -64,7 +64,7 @@
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
-				<string>ConnectionSearcher.py</string>
+				<string>run.sh</string>
 				<key>subtext</key>
 				<string>Find and open saved connection in JumpDesktop</string>
 				<key>title</key>
