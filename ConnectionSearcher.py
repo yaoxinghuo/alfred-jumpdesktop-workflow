@@ -54,10 +54,14 @@ def read_connections():
         jumps = glob.glob(connection_path + "/Computer - *.jump")
         connections = []
         for jump in jumps:
-            f = open(jump)
-            json_content = f.read()
-            f.close()
-            dict_content = json.loads(json_content)
+            try:
+                with open(jump) as f:
+                    json_content = f.read()
+                if not json_content.strip():
+                    continue  # skip empty files (e.g., iCloud sync stubs)
+                dict_content = json.loads(json_content)
+            except (ValueError, IOError):
+                continue  # skip malformed or unreadable files
             icon = None
             if dict_content["Icon"]:
                 icon = (
